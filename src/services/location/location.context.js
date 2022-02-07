@@ -11,6 +11,7 @@ export const LocationContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const onSearch = (searchKeyword) => {
+    //console.log(searchKeyword);
     setIsLoading(true);
     setKeyword(searchKeyword);
   };
@@ -30,6 +31,7 @@ export const LocationContextProvider = ({ children }) => {
       .catch((err) => {
         setIsLoading(false);
         setError(err);
+        // console.log(err);
       });
   }, [keyword]);
 
