@@ -10,7 +10,7 @@ import { RestaurantsContext } from '../../../services/restaurants/restaurants.co
 
 import { Search } from '../components/search.component';
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component';
-
+//import { FavouritesContext } from '../../../services/favourites/favourites.context';
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16,
@@ -28,7 +28,10 @@ const LoadingContainer = styled.View`
 
 export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
-  //console.log(navigation);
+  //const { favourites } = useContext(FavouritesContext);
+
+  //console.log(favourites);
+
   return (
     <SafeArea>
       {isLoading && (
