@@ -17,20 +17,6 @@ import { FavouritesContextProvider } from './src/services/favourites/favourites.
 import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 
 export default function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     signInWithEmailAndPassword(auth, 'cdavis@joegalaxy.com', 'test123')
-  //       .then((user) => {
-  //         //console.log(user);
-  //         setIsAuthenticated(true);
-  //       })
-  //       .catch((e) => {
-  //         console.log(e.code, e.message);
-  //       });
-  //   }, 2000);
-  // }, []);
-
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
