@@ -2,7 +2,12 @@ import React, { useState, createContext } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from 'firebase/auth';
 
 import { loginRequest } from './authentication.service';
 
@@ -26,13 +31,19 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 
-//const auth = getAuth(app);
-// //console.log(auth);
-
 export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+
+  onAuthStateChanged(getAuth(app), (usr) => {
+    if (usr) {
+      setUser(usr);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  });
 
   const onLogin = (email, password) => {
     setIsLoading(true);
@@ -48,6 +59,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   };
 
   const onRegister = (email, password, repeatedPassword) => {
+    setIsLoading(true);
     if (password !== repeatedPassword) {
       setError('Error: Passwords do not match');
       return;
@@ -63,6 +75,11 @@ export const AuthenticationContextProvider = ({ children }) => {
       });
   };
 
+  const onLogout = () => {
+    setUser(null);
+    signOut(getAuth(app));
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -72,6 +89,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         error,
         onLogin,
         onRegister,
+        onLogout,
       }}
     >
       {children}
