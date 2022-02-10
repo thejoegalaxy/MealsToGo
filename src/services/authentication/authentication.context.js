@@ -26,7 +26,7 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 
-const auth = getAuth(app);
+//const auth = getAuth(app);
 // //console.log(auth);
 
 export const AuthenticationContextProvider = ({ children }) => {
@@ -36,7 +36,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const onLogin = (email, password) => {
     setIsLoading(true);
-    loginRequest(auth, email, password)
+    loginRequest(getAuth(app), email, password)
       .then((u) => {
         setUser(u);
         setIsLoading(false);
@@ -50,6 +50,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   return (
     <AuthenticationContext.Provider
       value={{
+        isAuthenticated: !!user,
         user,
         isLoading,
         error,
