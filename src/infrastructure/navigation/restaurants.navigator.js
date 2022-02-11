@@ -19,7 +19,7 @@ export const RestaurantsNavigator = () => {
       }}
     >
       <RestaurantStack.Screen
-        name="Restaurants"
+        name="restaurants" //renamed to lowercase to stop Warning
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen
