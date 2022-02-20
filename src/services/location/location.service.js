@@ -1,21 +1,20 @@
 import camelize from 'camelize';
+import { host } from '../../utils/env';
 
-import { locations } from './location.mock';
-
+// city name is transformed into lat lng location.
 export const locationRequest = (searchTerm) => {
-  return new Promise((resolve, reject) => {
-    const locationMock = locations[searchTerm];
-    if (!locationMock) {
-      reject('not found');
-    }
-    resolve(locationMock);
+  // console.log(searchTerm);
+  // console.log(host);
+  return fetch(`${host}/geocode?city=${searchTerm}`).then((res) => {
+    return res.json();
   });
 };
 
 export const locationTransform = (result) => {
+  //console.log(result);
   const formattedResponse = camelize(result);
   const { geometry = {} } = formattedResponse.results[0];
   const { lat, lng } = geometry.location;
-
+  // console.log(lat, lng);
   return { lat, lng, viewport: geometry.viewport };
 };
