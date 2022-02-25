@@ -9,6 +9,8 @@ import { List, Avatar } from 'react-native-paper';
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { SafeArea } from '../../../components/utility/safe-area.component';
+import { colors } from '../../../infrastructure/theme/colors';
+
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
 const SettingsItem = styled(List.Item)`
@@ -38,13 +40,17 @@ export const SettingsScreen = ({ navigation }) => {
       <AvatarContainer>
         <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
           {!photo && (
-            <Avatar.Icon size={180} icon="human" backgroundColor="#2182BD" />
+            <Avatar.Icon
+              size={180}
+              icon="human"
+              backgroundColor={colors.brand.primary}
+            />
           )}
           {photo && (
             <Avatar.Image
               size={180}
               source={{ uri: photo }}
-              backgroundColor="#2182BD"
+              backgroundColor={colors.brand.primary}
             />
           )}
         </TouchableOpacity>
